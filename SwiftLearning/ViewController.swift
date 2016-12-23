@@ -8,19 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var testButton: UIButton!
-    var buttonNum = 0
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    @IBAction func buttonOnTap(_ sender: UIButton) {
-        self.buttonNum += 1
-        sender.setTitle(String.init(describing: self.buttonNum), for: UIControlState.normal)
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 10
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell;
+        cell.fillCellWithIndexPath(path: indexPath) { (path) in
+            print("row : \(path.row) section : \(path.section)")
+        }
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
     
     override func didReceiveMemoryWarning() {
