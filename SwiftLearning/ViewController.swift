@@ -25,9 +25,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell;
         cell.fillCellWithIndexPath(path: indexPath) { (path) in
-            print("row : \(path.row) section : \(path.section)")
+            self.cellButtonOnTap(path: path)
         }
-        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -38,6 +37,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
+    }
+    
+    func cellButtonOnTap(path:IndexPath) {
+        self.title = "row : \(path.row) section : \(path.section)"
     }
     
     override func didReceiveMemoryWarning() {

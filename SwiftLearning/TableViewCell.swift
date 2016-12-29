@@ -10,18 +10,29 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    var cellPath : IndexPath = []
+    var cellCallBack : (IndexPath)->Void = { (path) in
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    public func fillCellWithIndexPath(path: IndexPath, callBack: (IndexPath)->Void) {
+    public func fillCellWithIndexPath(path: IndexPath, callBack: @escaping (IndexPath)->Void) {
+        self.cellPath = path
+        self.cellCallBack = callBack;
         if path.row % 2 == 0 {
             self.contentView.backgroundColor = UIColor.gray
         }else{
             self.contentView.backgroundColor = UIColor.lightGray;
         }
-        callBack(path)
+    }
+    
+    @IBAction func buttonOnTap(_ sender: UIButton) {
+        self.cellCallBack(self.cellPath)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
